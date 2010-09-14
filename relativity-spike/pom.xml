@@ -1,0 +1,114 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.purediscovery.relativity</groupId>
+	<artifactId>relativity-spike</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>relativity-spike</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!--<dependency>-->
+		<!--<groupId>com.sun.xml.ws</groupId>-->
+		<!--<artifactId>jaxws-rt</artifactId>-->
+		<!--<version>2.1.6</version>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>com.sun.xml.ws</groupId>-->
+			<!--<artifactId>jaxws-rt</artifactId>-->
+			<!--<version>2.2.1</version>-->
+		<!--</dependency>-->
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>webservices</artifactId>
+			<version>2.0.1</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>r06</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>1.12</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!--<sei>-->
+						<!---->
+					<!--</sei>-->
+					<wsdlUrls>
+						<wsdlUrl>https://pure.kcura.com/Relativity.Services/ArtifactManager.svc?wsdl</wsdlUrl>
+					</wsdlUrls>
+					<sourceDestDir>${basedir}/src/jaxws/java</sourceDestDir>
+					<!--<packageName>com.kcura.relativity</packageName>-->
+					<extension>true</extension>
+					<target>2.1</target>
+				</configuration>
+				<dependencies>
+					<!--<dependency>-->
+						<!--<groupId>com.sun.xml.ws</groupId>-->
+						<!--<artifactId>jaxws-tools</artifactId>-->
+						<!--<version>2.2.1</version>-->
+					<!--</dependency>-->
+					<dependency>
+						<groupId>com.sun.tools.ws</groupId>
+						<artifactId>webservices-tools</artifactId>
+						<version>2.0.1</version>
+					</dependency>
+        </dependencies>
+			</plugin>
+
+			<!-- Don't forget Java 5!! -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

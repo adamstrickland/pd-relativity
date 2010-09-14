@@ -1,0 +1,531 @@
+<?xml version="1.0"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:tns="http://services.kcura.com/Relativity.Services/6.2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="ArtifactManager" targetNamespace="http://services.kcura.com/Relativity.Services/6.2">
+    <wsp:Policy wsu:Id="Relativity_IArtifactManager_policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken/>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic256/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:EndorsingSupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                    <wsp:Policy>
+                        <sp:SecureConversationToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:BootstrapPolicy>
+                                    <wsp:Policy>
+                                        <sp:SignedParts>
+                                            <sp:Body/>
+                                            <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+                                            <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+                                            <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+                                            <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+                                            <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+                                            <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+                                            <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+                                        </sp:SignedParts>
+                                        <sp:EncryptedParts>
+                                            <sp:Body/>
+                                        </sp:EncryptedParts>
+                                        <sp:TransportBinding>
+                                            <wsp:Policy>
+                                                <sp:TransportToken>
+                                                    <wsp:Policy>
+                                                        <sp:HttpsToken/>
+                                                    </wsp:Policy>
+                                                </sp:TransportToken>
+                                                <sp:AlgorithmSuite>
+                                                    <wsp:Policy>
+                                                        <sp:Basic256/>
+                                                    </wsp:Policy>
+                                                </sp:AlgorithmSuite>
+                                                <sp:Layout>
+                                                    <wsp:Policy>
+                                                        <sp:Strict/>
+                                                    </wsp:Policy>
+                                                </sp:Layout>
+                                                <sp:IncludeTimestamp/>
+                                            </wsp:Policy>
+                                        </sp:TransportBinding>
+                                        <sp:SignedEncryptedSupportingTokens>
+                                            <wsp:Policy>
+                                                <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                                                    <wsp:Policy>
+                                                        <sp:WssUsernameToken10/>
+                                                    </wsp:Policy>
+                                                </sp:UsernameToken>
+                                            </wsp:Policy>
+                                        </sp:SignedEncryptedSupportingTokens>
+                                        <sp:Wss11>
+                                            <wsp:Policy>
+                                                <sp:MustSupportRefKeyIdentifier/>
+                                                <sp:MustSupportRefIssuerSerial/>
+                                                <sp:MustSupportRefThumbprint/>
+                                                <sp:MustSupportRefEncryptedKey/>
+                                            </wsp:Policy>
+                                        </sp:Wss11>
+                                        <sp:Trust13>
+                                            <wsp:Policy>
+                                                <sp:MustSupportIssuedTokens/>
+                                                <sp:RequireClientEntropy/>
+                                                <sp:RequireServerEntropy/>
+                                            </wsp:Policy>
+                                        </sp:Trust13>
+                                    </wsp:Policy>
+                                </sp:BootstrapPolicy>
+                                <sp:MustNotSendAmend/>
+                            </wsp:Policy>
+                        </sp:SecureConversationToken>
+                    </wsp:Policy>
+                </sp:EndorsingSupportingTokens>
+                <sp:Wss11 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                    <wsp:Policy>
+                        <sp:MustSupportRefKeyIdentifier/>
+                        <sp:MustSupportRefIssuerSerial/>
+                        <sp:MustSupportRefThumbprint/>
+                        <sp:MustSupportRefEncryptedKey/>
+                    </wsp:Policy>
+                </sp:Wss11>
+                <sp:Trust13 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                    <wsp:Policy>
+                        <sp:MustSupportIssuedTokens/>
+                        <sp:RequireClientEntropy/>
+                        <sp:RequireServerEntropy/>
+                    </wsp:Policy>
+                </sp:Trust13>
+                <wsaw:UsingAddressing/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://services.kcura.com/Relativity.Services/6.2/Imports">
+            <xsd:import schemaLocation="https://pure.kcura.com/Relativity.Services/ArtifactManager.svc?xsd=xsd0" namespace="http://services.kcura.com/Relativity.Services/6.2"/>
+            <xsd:import schemaLocation="https://pure.kcura.com/Relativity.Services/ArtifactManager.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+            <xsd:import schemaLocation="https://pure.kcura.com/Relativity.Services/ArtifactManager.svc?xsd=xsd2" namespace="http://services.kcura.com/Relativity.Services/6.2/Exceptions"/>
+            <xsd:import schemaLocation="https://pure.kcura.com/Relativity.Services/ArtifactManager.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+            <xsd:import schemaLocation="https://pure.kcura.com/Relativity.Services/ArtifactManager.svc?xsd=xsd4" namespace="http://services.kcura.com/Relativity.Services/6.2/Enumerations"/>
+            <xsd:import schemaLocation="https://pure.kcura.com/Relativity.Services/ArtifactManager.svc?xsd=xsd5" namespace="http://services.kcura.com/Relativity.Services/6.2/Query"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="IArtifactManager_Login_InputMessage">
+        <wsdl:part name="parameters" element="tns:Login"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Login_OutputMessage">
+        <wsdl:part name="parameters" element="tns:LoginResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Login_Login_x0020_Failure_FaultMessage">
+        <wsdl:part name="detail" element="tns:Login_x0020_Failure"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Create_InputMessage">
+        <wsdl:part name="parameters" element="tns:Create"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Create_OutputMessage">
+        <wsdl:part name="parameters" element="tns:CreateResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Create_CrudFailureExceptionFault_FaultMessage">
+        <wsdl:part xmlns:q1="http://services.kcura.com/Relativity.Services/6.2/Exceptions" name="detail" element="q1:CrudFailureException"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Read_InputMessage">
+        <wsdl:part name="parameters" element="tns:Read"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Read_OutputMessage">
+        <wsdl:part name="parameters" element="tns:ReadResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Read_CrudFailureExceptionFault_FaultMessage">
+        <wsdl:part xmlns:q2="http://services.kcura.com/Relativity.Services/6.2/Exceptions" name="detail" element="q2:CrudFailureException"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Update_InputMessage">
+        <wsdl:part name="parameters" element="tns:Update"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Update_OutputMessage">
+        <wsdl:part name="parameters" element="tns:UpdateResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Update_CrudFailureExceptionFault_FaultMessage">
+        <wsdl:part xmlns:q3="http://services.kcura.com/Relativity.Services/6.2/Exceptions" name="detail" element="q3:CrudFailureException"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Delete_InputMessage">
+        <wsdl:part name="parameters" element="tns:Delete"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Delete_OutputMessage">
+        <wsdl:part name="parameters" element="tns:DeleteResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Delete_CrudFailureExceptionFault_FaultMessage">
+        <wsdl:part xmlns:q4="http://services.kcura.com/Relativity.Services/6.2/Exceptions" name="detail" element="q4:CrudFailureException"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Query_InputMessage">
+        <wsdl:part name="parameters" element="tns:Query"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Query_OutputMessage">
+        <wsdl:part name="parameters" element="tns:QueryResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Query_QueryFailureExceptionFault_FaultMessage">
+        <wsdl:part xmlns:q5="http://services.kcura.com/Relativity.Services/6.2/Exceptions" name="detail" element="q5:QueryFailureException"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_QuerySubset_InputMessage">
+        <wsdl:part name="parameters" element="tns:QuerySubset"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_QuerySubset_OutputMessage">
+        <wsdl:part name="parameters" element="tns:QuerySubsetResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_QuerySubset_QueryFailureExceptionFault_FaultMessage">
+        <wsdl:part xmlns:q6="http://services.kcura.com/Relativity.Services/6.2/Exceptions" name="detail" element="q6:QueryFailureException"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_Logout_InputMessage">
+        <wsdl:part name="parameters" element="tns:Logout"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_ExecuteBatch_InputMessage">
+        <wsdl:part name="parameters" element="tns:ExecuteBatch"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_ExecuteBatch_OutputMessage">
+        <wsdl:part name="parameters" element="tns:ExecuteBatchResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_ExecuteBatch_BatchFailureExceptionFault_FaultMessage">
+        <wsdl:part xmlns:q7="http://services.kcura.com/Relativity.Services/6.2/Exceptions" name="detail" element="q7:BatchFailureException"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_ExecuteRelativityScript_InputMessage">
+        <wsdl:part name="parameters" element="tns:ExecuteRelativityScript"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_ExecuteRelativityScript_OutputMessage">
+        <wsdl:part name="parameters" element="tns:ExecuteRelativityScriptResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_ExecuteRelativityScript_RelativityScriptExceptionFault_FaultMessage">
+        <wsdl:part xmlns:q8="http://services.kcura.com/Relativity.Services/6.2/Exceptions" name="detail" element="q8:BatchFailureException"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_MassEdit_InputMessage">
+        <wsdl:part name="parameters" element="tns:MassEdit"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_MassEdit_OutputMessage">
+        <wsdl:part name="parameters" element="tns:MassEditResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_MassEdit_MassEditExceptionFault_FaultMessage">
+        <wsdl:part xmlns:q9="http://services.kcura.com/Relativity.Services/6.2/Exceptions" name="detail" element="q9:MassEditException"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_MassCreate_InputMessage">
+        <wsdl:part name="parameters" element="tns:MassCreate"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_MassCreate_OutputMessage">
+        <wsdl:part name="parameters" element="tns:MassCreateResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IArtifactManager_MassCreate_MassCreateExceptionFault_FaultMessage">
+        <wsdl:part xmlns:q10="http://services.kcura.com/Relativity.Services/6.2/Exceptions" name="detail" element="q10:MassCreateException"/>
+    </wsdl:message>
+    <wsdl:portType msc:usingSession="true" name="IArtifactManager">
+        <wsdl:documentation>	&lt;summary&gt;&#xD;
+ ArtifactManager provides CRUD, Query, and Script Execution services to Relativity.&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;remarks&gt;&lt;/remarks&gt;</wsdl:documentation>
+        <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Login">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ The Login method establishes a session with the Services API&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;returns&gt;The session token&lt;/returns&gt;&#xD;
+	&lt;remarks&gt;The session token must be provided as a parameter to all subsequent calls to the API.&lt;/remarks&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Login" message="tns:IArtifactManager_Login_InputMessage"/>
+            <wsdl:output wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/LoginResponse" message="tns:IArtifactManager_Login_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/LoginLogin Failure" name="Login_x0020_Failure" message="tns:IArtifactManager_Login_Login_x0020_Failure_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="Create">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ Creates the specified artifacts.&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;param name="token"&gt;The security token obtained from Login.&lt;/param&gt;&#xD;
+	&lt;param name="artifacts"&gt;The artifacts to be created.&lt;/param&gt;&#xD;
+	&lt;returns&gt;Returns a ResultSet indicating the status of the overall Create request and results for each artifact created.&lt;/returns&gt;&#xD;
+	&lt;remarks&gt;Creation of Documents is not supported; only Creation of Relativity Dynamic Objects (RDO)&lt;/remarks&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Create" message="tns:IArtifactManager_Create_InputMessage"/>
+            <wsdl:output wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/CreateResponse" message="tns:IArtifactManager_Create_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/CreateCrudFailureExceptionFault" name="CrudFailureExceptionFault" message="tns:IArtifactManager_Create_CrudFailureExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="Read">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ Reads the specified Artifacts that are identified by ArtifactID.&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;param name="token"&gt;The security token.&lt;/param&gt;&#xD;
+	&lt;param name="Artifacts"&gt;The list of artifacts to read.&lt;/param&gt;&#xD;
+	&lt;returns&gt;Returns an array of Artifact objects.&lt;/returns&gt;&#xD;
+	&lt;remarks&gt;The list of Field objects in the Fields collection is used to indicate to the API which field values you want returned.&#xD;
+ If no fields are included/specified, then the API will return ALL available fields. &lt;/remarks&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Read" message="tns:IArtifactManager_Read_InputMessage"/>
+            <wsdl:output wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/ReadResponse" message="tns:IArtifactManager_Read_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/ReadCrudFailureExceptionFault" name="CrudFailureExceptionFault" message="tns:IArtifactManager_Read_CrudFailureExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="Update">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ Updates the specified Artifacts.&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;param name="token"&gt;The security token.&lt;/param&gt;&#xD;
+	&lt;param name="artifacts"&gt;The artifacts to be updated.&lt;/param&gt;&#xD;
+	&lt;returns&gt;Returns a ResultSet indicating overall status of the request.&lt;/returns&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Update" message="tns:IArtifactManager_Update_InputMessage"/>
+            <wsdl:output wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/UpdateResponse" message="tns:IArtifactManager_Update_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/UpdateCrudFailureExceptionFault" name="CrudFailureExceptionFault" message="tns:IArtifactManager_Update_CrudFailureExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="Delete">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ Deletes the specified Artifacts.&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;param name="token"&gt;The security token.&lt;/param&gt;&#xD;
+	&lt;param name="artifacts"&gt;The artifacts to be deleted.&lt;/param&gt;&#xD;
+	&lt;returns&gt;Returns a ResultSet indicating overall status of the request.&lt;/returns&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Delete" message="tns:IArtifactManager_Delete_InputMessage"/>
+            <wsdl:output wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/DeleteResponse" message="tns:IArtifactManager_Delete_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/DeleteCrudFailureExceptionFault" name="CrudFailureExceptionFault" message="tns:IArtifactManager_Delete_CrudFailureExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="Query">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ Queries Relativity to find Artifacts matching the selection criteria.&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;param name="token"&gt;The security token.&lt;/param&gt;&#xD;
+	&lt;param name="queryObject"&gt;The Query object that indicates the query to execute&lt;/param&gt;&#xD;
+	&lt;param name="length"&gt;The maximum number of artifacts to return.  Additional results may be fetched by calling QuerySubset&lt;/param&gt;&#xD;
+	&lt;returns&gt;A QueryResult object that provides the first &lt;paramref name="length"&gt;length&lt;/paramref&gt; number of items.  &#xD;
+ If more than &lt;paramref name="length"&gt;length&lt;/paramref&gt; search results are available, the QueryResult.QueryToken property will have a value.&lt;/returns&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Query" message="tns:IArtifactManager_Query_InputMessage"/>
+            <wsdl:output wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/QueryResponse" message="tns:IArtifactManager_Query_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/QueryQueryFailureExceptionFault" name="QueryFailureExceptionFault" message="tns:IArtifactManager_Query_QueryFailureExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="QuerySubset">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ QuerySubSet is used to fetch search results that were not returned in the first call to Query.&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;param name="securityToken"&gt;The security token.&lt;/param&gt;&#xD;
+	&lt;param name="queryToken"&gt;The query token value provided in the QueryResult.&lt;/param&gt;&#xD;
+	&lt;param name="start"&gt;The starting position from within the resultset that this call to QuerySubset will begin with.&lt;/param&gt;&#xD;
+	&lt;param name="length"&gt;The number of results to return.&lt;/param&gt;&#xD;
+	&lt;returns&gt;QueryResult&lt;/returns&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/QuerySubset" message="tns:IArtifactManager_QuerySubset_InputMessage"/>
+            <wsdl:output wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/QuerySubsetResponse" message="tns:IArtifactManager_QuerySubset_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/QuerySubsetQueryFailureExceptionFault" name="QueryFailureExceptionFault" message="tns:IArtifactManager_QuerySubset_QueryFailureExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation msc:isInitiating="false" msc:isTerminating="true" name="Logout">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ Terminates the session with the Relativity.Services API&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;param name="token"&gt;The security token.&lt;/param&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Logout" message="tns:IArtifactManager_Logout_InputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ExecuteBatch">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ Executes a batch of Create, Update, and/or Delete commands&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;param name="token"&gt;The security token.&lt;/param&gt;&#xD;
+	&lt;param name="commands"&gt;A list of Commands to execute.&lt;/param&gt;&#xD;
+	&lt;param name="transType"&gt;Indicates whether the batch should execute within a database transaction.&lt;/param&gt;&#xD;
+	&lt;returns&gt;A list of ResultSets that indicates overall status of the request and an Artifact for each item operated upon.&lt;/returns&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/ExecuteBatch" message="tns:IArtifactManager_ExecuteBatch_InputMessage"/>
+            <wsdl:output wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/ExecuteBatchResponse" message="tns:IArtifactManager_ExecuteBatch_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/ExecuteBatchBatchFailureExceptionFault" name="BatchFailureExceptionFault" message="tns:IArtifactManager_ExecuteBatch_BatchFailureExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ExecuteRelativityScript">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ Executes a Relativity Script.&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;param name="token"&gt;The security token.&lt;/param&gt;&#xD;
+	&lt;param name="workspaceArtifactID"&gt;The workspace artifact ID.&lt;/param&gt;&#xD;
+	&lt;param name="scriptArtifactID"&gt;The script artifact ID.&lt;/param&gt;&#xD;
+	&lt;param name="inputs"&gt;The script's inputs.&lt;/param&gt;&#xD;
+	&lt;returns&gt;Returns a ResultSet that provides the output of the execution of the script.&lt;/returns&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/ExecuteRelativityScript" message="tns:IArtifactManager_ExecuteRelativityScript_InputMessage"/>
+            <wsdl:output wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/ExecuteRelativityScriptResponse" message="tns:IArtifactManager_ExecuteRelativityScript_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/ExecuteRelativityScriptRelativityScriptExceptionFault" name="RelativityScriptExceptionFault" message="tns:IArtifactManager_ExecuteRelativityScript_RelativityScriptExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="MassEdit">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ MassEdit will apply the Field values from the 'template' artifact to each of the artifacts identfied by the array of ArtifactIDs.&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;param name="token"&gt;The security token.&lt;/param&gt;&#xD;
+	&lt;param name="templateArtifact"&gt;An artifact with a set of Fields from which the Field values will be applied to each artifact&lt;/param&gt;&#xD;
+	&lt;param name="artifactIDs"&gt;The ArtifactID of each item that will be edited&lt;/param&gt;&#xD;
+	&lt;returns&gt;MassOperationResult indicating the status of the MassEdit operation&lt;/returns&gt;&#xD;
+	&lt;remarks&gt;Currently works on Documents only, no other ArtifactType supported&lt;/remarks&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/MassEdit" message="tns:IArtifactManager_MassEdit_InputMessage"/>
+            <wsdl:output wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/MassEditResponse" message="tns:IArtifactManager_MassEdit_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/MassEditMassEditExceptionFault" name="MassEditExceptionFault" message="tns:IArtifactManager_MassEdit_MassEditExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="MassCreate">
+            <wsdl:documentation>	&lt;summary&gt;&#xD;
+ MassCreate will create RDO instances based upon the field values provided by a 'template' artifact.  The template provides the&#xD;
+ default values.  An RDO instance will be created for each artifact in the artifacts list.  Any field values provided in an artifact&#xD;
+ will override the defaults provided by the template.&#xD;
+ &lt;/summary&gt;&#xD;
+	&lt;param name="token"&gt;Security Token&lt;/param&gt;&#xD;
+	&lt;param name="templateArtifact"&gt;An artifact with a set of fields providing default values&lt;/param&gt;&#xD;
+	&lt;param name="artifacts"&gt;A list of artifacts to be created.  An RDO will be created for each artifact in the list.&lt;/param&gt;&#xD;
+	&lt;returns&gt;MassOperationResult indicating the status of the MassCreate operation&lt;/returns&gt;&#xD;
+	&lt;remarks&gt;Only the fields defined in the template will be populated in the created RDO instances.  Any field defined in an artifact which &#xD;
+ is not also in the template will be ignored.&#xD;
+ All RDO instances will be of the same artifact Type and in the same Workspace.&lt;/remarks&gt;</wsdl:documentation>
+            <wsdl:input wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/MassCreate" message="tns:IArtifactManager_MassCreate_InputMessage"/>
+            <wsdl:output wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/MassCreateResponse" message="tns:IArtifactManager_MassCreate_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/MassCreateMassCreateExceptionFault" name="MassCreateExceptionFault" message="tns:IArtifactManager_MassCreate_MassCreateExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="Relativity_IArtifactManager" type="tns:IArtifactManager">
+        <wsp:PolicyReference URI="#Relativity_IArtifactManager_policy"/>
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Login">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Login" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="Login_x0020_Failure">
+                <soap12:fault name="Login_x0020_Failure" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Create">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Create" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="CrudFailureExceptionFault">
+                <soap12:fault name="CrudFailureExceptionFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Read">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Read" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="CrudFailureExceptionFault">
+                <soap12:fault name="CrudFailureExceptionFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Update">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Update" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="CrudFailureExceptionFault">
+                <soap12:fault name="CrudFailureExceptionFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Delete">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Delete" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="CrudFailureExceptionFault">
+                <soap12:fault name="CrudFailureExceptionFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Query">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Query" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="QueryFailureExceptionFault">
+                <soap12:fault name="QueryFailureExceptionFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="QuerySubset">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/QuerySubset" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="QueryFailureExceptionFault">
+                <soap12:fault name="QueryFailureExceptionFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Logout">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/Logout" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="ExecuteBatch">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/ExecuteBatch" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="BatchFailureExceptionFault">
+                <soap12:fault name="BatchFailureExceptionFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ExecuteRelativityScript">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/ExecuteRelativityScript" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="RelativityScriptExceptionFault">
+                <soap12:fault name="RelativityScriptExceptionFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="MassEdit">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/MassEdit" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="MassEditExceptionFault">
+                <soap12:fault name="MassEditExceptionFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="MassCreate">
+            <soap12:operation soapAction="http://services.kcura.com/Relativity.Services/6.2/IArtifactManager/MassCreate" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="MassCreateExceptionFault">
+                <soap12:fault name="MassCreateExceptionFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ArtifactManager">
+        <wsdl:port name="Relativity_IArtifactManager" binding="tns:Relativity_IArtifactManager">
+            <soap12:address location="https://pure.kcura.com/Relativity.Services/ArtifactManager.svc"/>
+            <wsa10:EndpointReference>
+                <wsa10:Address>https://pure.kcura.com/Relativity.Services/ArtifactManager.svc</wsa10:Address>
+                <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+                    <Dns>localhost</Dns>
+                </Identity>
+            </wsa10:EndpointReference>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
